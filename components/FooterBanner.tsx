@@ -2,8 +2,25 @@ import React from "react";
 import Link from "next/link";
 import { urlFor } from "@/sanity/lib/image";
 
+interface FooterBannerTypes {
+	discount: string;
+	largeText1: string;
+	largeText2: string;
+	saleTime: string;
+	smallText: string;
+	midText: string;
+	desc: string;
+	product: string;
+	buttonText: string;
+	image: string;
+}
+
 const FooterBanner = ({
-	footerBanner: {
+	footerBanner,
+}: {
+	footerBanner: FooterBannerTypes;
+}) => {
+	const {
 		discount,
 		largeText1,
 		largeText2,
@@ -14,8 +31,7 @@ const FooterBanner = ({
 		product,
 		buttonText,
 		image,
-	},
-}) => {
+	} = footerBanner;
 	return (
 		<div className="footer-banner-container">
 			<div className="banner-desc">
