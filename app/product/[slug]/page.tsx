@@ -17,7 +17,7 @@ const page = async ({ params }: Props) => {
 
 	return (
 		<div>
-			<ProductView product={product} products={products} />;
+			<ProductView product={product} products={products} />
 			<div className="maylike-products-wrapper">
 				<h2>You may also like</h2>
 				<div className="marquee">
