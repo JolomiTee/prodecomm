@@ -12,13 +12,10 @@ import { TiDeleteOutline } from "react-icons/ti";
 import toast from "react-hot-toast";
 import { useStore } from "@/context/StateContext";
 import { urlFor } from "@/sanity/lib/image";
-
-// import { urlFor } from '../lib/client';
-// import getStripe from '../lib/getStripe';
+import getStripe from "@/lib/getStripe";
 
 const Cart = () => {
 	const cartRef = useRef(null);
-	// const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuanitity, onRemove } = useStateContext();
 	const totalPrice = useStore((state) => state.totalPrice);
 	const totalQuantities = useStore((state) => state.totalQuantities);
 	const cartItems = useStore((state) => state.cartItems);
@@ -28,25 +25,25 @@ const Cart = () => {
 	);
 	const onRemove = useStore((state) => state.onRemove);
 
-	// const handleCheckout = async () => {
-	// 	const stripe = await getStripe();
+	const handleCheckout = async () => {
+		const stripe = await getStripe();
 
-	// 	const response = await fetch("/api/stripe", {
-	// 		method: "POST",
-	// 		headers: {
-	// 			"Content-Type": "application/json",
-	// 		},
-	// 		body: JSON.stringify(cartItems),
-	// 	});
+		const response = await fetch("/api/stripe", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(cartItems),
+		});
 
-	// 	if (response.statusCode === 500) return;
+		if (response.status === 500) return;
 
-	// 	const data = await response.json();
+		const data = await response.json();
 
-	// 	toast.loading("Redirecting...");
+		toast.loading("Redirecting...");
 
-	// 	stripe.redirectToCheckout({ sessionId: data.id });
-	// };
+		stripe?.redirectToCheckout({ sessionId: data.id });
+	};
 
 	return (
 		<div className="cart-wrapper" ref={cartRef}>
@@ -137,11 +134,7 @@ const Cart = () => {
 							<h3>${totalPrice}</h3>
 						</div>
 						<div className="btn-container">
-							<button
-								type="button"
-								className="btn"
-								// onClick={handleCheckout}
-							>
+							<button type="button" className="btn" onClick={handleCheckout}>
 								Pay with Stripe
 							</button>
 						</div>

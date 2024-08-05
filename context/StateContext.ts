@@ -2,12 +2,12 @@ import { create } from "zustand";
 import { toast } from "react-hot-toast";
 
 // Define the Product interface
-interface Product {
+export interface Product {
 	_id: string;
 	name: string;
 	price: number;
 	quantity: number;
-	[key: string]: any; // For any additional properties
+	image: { asset: { _ref: string } }[];
 }
 
 // Define the state interface
