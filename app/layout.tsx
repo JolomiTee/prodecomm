@@ -21,9 +21,7 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={`layout ${inter.className}`}>
 				<Toaster />
-				<Head>
-					<title>Prodecomm Store</title>
-				</Head>
+				<title>Prodecomm Store</title>
 				<header>
 					<Navbar />
 				</header>
