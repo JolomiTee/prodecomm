@@ -25,25 +25,33 @@ const Cart = () => {
 	);
 	const onRemove = useStore((state) => state.onRemove);
 
-   const handleCheckout = async () => {
-			const stripe = await getStripe();
+	const handleCheckout = async () => {
+		try {
+			const stripe = getStripe();
 			const response = await fetch("/api/stripe", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify(cartItems),
+				body: JSON.stringify(cartItems), // Ensure cartItems is defined and properly formatted
 			});
 
-			if (response.status === 500) return;
+			if (!response.ok) {
+				console.error("Error:", response.status, response.statusText);
+				// Optionally, you can return or handle the error in some other way
+				return;
+			}
 
 			const data = await response.json();
-
-			console.log(data);
 			toast.loading("Redirecting...");
+			console.log("Checkout Data:", data);
+			// Log the response data
+		} catch (err) {
+			console.error("Fetch error:", err);
+		}
+	};
 
-			// stripe?.redirectToCheckout({ sessionId: data.id });
-		};
+	// console.log(JSON.stringify(cartItems));
 
 	return (
 		<div className="cart-wrapper" ref={cartRef}>

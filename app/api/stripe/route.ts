@@ -2,16 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-interface LineItem {
-	name: string;
-	image: { asset: { _ref: string } }[];
-	price: number;
-	quantity: number;
-}
 
 export async function POST(req: NextRequest) {
 	try {
-		const { cartItems }: { cartItems: LineItem[] } = await req.json();
+		const cartItems = await req.json();
 
 		const params: Stripe.Checkout.SessionCreateParams = {
 			submit_type: "pay",
@@ -22,22 +16,22 @@ export async function POST(req: NextRequest) {
 				{ shipping_rate: "shr_1PkDLU2LMUBfV12CGfi2eO30" },
 				{ shipping_rate: "shr_1PkDMN2LMUBfV12CIPavwMlD" },
 			],
-			line_items: cartItems.map((item) => {
+			line_items: cartItems.map((item: any) => {
 				const img = item.image[0].asset._ref;
 				const newImage = img
 					.replace(
 						"image-",
-						"https://cdn.sanity.io/images/vfxfwnaw/production/"
+						`https://cdn.sanity.io/images/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/`
 					)
 					.replace("-webp", ".webp");
 				return {
 					price_data: {
-						currency: "usd",
+						currency: "ngn",
 						product_data: {
 							name: item.name,
 							images: [newImage],
 						},
-						unit_amount: item.price * 100,
+						unit_amount: item.price * 1000,
 					},
 					adjustable_quantity: {
 						enabled: true,
