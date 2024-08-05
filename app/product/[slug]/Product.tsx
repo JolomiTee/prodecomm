@@ -8,6 +8,7 @@ import {
 import { urlFor } from "@/sanity/lib/image";
 import { useState } from "react";
 import { useStore } from "@/context/StateContext";
+import Image from "next/image";
 
 const ProductView = ({ product }: any) => {
 	const { image, name, details, price } = product;
@@ -27,15 +28,21 @@ const ProductView = ({ product }: any) => {
 		<div className="product-detail-container">
 			<div>
 				<div className="image-container">
-					<img
+					<Image
 						src={urlFor(image && image[index]).url()}
 						className="product-detail-image"
+						alt="product detail"
+						width={400}
+						height={400}
 					/>
 				</div>
 				<div className="small-images-container">
 					{image?.map((item: string, i: number) => (
-						<img
+						<Image
+							alt="preview image"
 							key={i}
+							width={70}
+							height={70}
 							src={urlFor(item).url()}
 							className={
 								i === index ? "small-image selected-image" : "small-image"

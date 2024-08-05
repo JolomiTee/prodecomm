@@ -23,7 +23,9 @@ const HeroBanner = ({ heroBanner }: { heroBanner: HeroBannerType }) => {
 				<p className="beats-solo">{smallText}</p>
 				<h3>{midText}</h3>
 				<h1>{largeText1}</h1>
-				<img
+				<Image
+					width={600}
+					height={600}
 					src={urlFor(image).url()}
 					alt="headphones"
 					className="hero-banner-image"

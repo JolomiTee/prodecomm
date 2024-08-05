@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { BsBagCheckFill } from "react-icons/bs";
 import { runFireworks } from "@/lib/utils";
 
-const page = () => {
+const Page = () => {
 	const setCartItems = useStore((state) => state.setCartItems);
 	const setTotalPrice = useStore((state) => state.setTotalPrice);
 	const setTotalQuantities = useStore((state) => state.setTotalQuantities);
@@ -43,4 +43,4 @@ const page = () => {
 	);
 };
 
-export default page;
+export default Page;

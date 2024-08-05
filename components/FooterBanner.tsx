@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { urlFor } from "@/sanity/lib/image";
+import Image from "next/image";
 
 interface FooterBannerTypes {
 	discount: string;
@@ -50,7 +51,13 @@ const FooterBanner = ({
 					</Link>
 				</div>
 
-				<img src={urlFor(image).url()} className="footer-banner-image" />
+				<Image
+					alt="footer banner image"
+					width={600}
+					height={600}
+					src={urlFor(image).url()}
+					className="footer-banner-image"
+				/>
 			</div>
 		</div>
 	);
